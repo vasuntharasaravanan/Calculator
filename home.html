@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Neon Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: radial-gradient(circle, #1a1a1a, #000000);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .calculator {
+            width: 350px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #00ffcc;
+            position: relative;
+            overflow: hidden;
+        }
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #00ffcc, #ff00ff, #ffcc00, #00ffcc);
+            z-index: -1;
+            filter: blur(30px);
+            animation: neonMove 5s linear infinite;
+        }
+        @keyframes neonMove {
+            0% { transform: translateX(-100%) }
+            50% { transform: translateX(100%) }
+            100% { transform: translateX(-100%) }
+        }
+        .display {
+            width: 100%;
+            height: 60px;
+            text-align: right;
+            font-size: 2em;
+            padding: 10px;
+            border: none;
+            outline: none;
+            background: black;
+            color: #00ffcc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 10px #00ffcc inset;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 20px;
+            font-size: 1.5em;
+            background: rgba(255, 255, 255, 0.1);
+            color: #00ffcc;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 10px #00ffcc;
+        }
+        button:hover {
+            background: #00ffcc;
+            color: black;
+            box-shadow: 0 0 20px #00ffcc;
+        }
+        .operator {
+            background: rgba(255, 165, 0, 0.8);
+            color: black;
+        }
+        .operator:hover {
+            background: #ffcc00;
+            box-shadow: 0 0 20px #ffcc00;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="glow"></div>
+        <input type="text" class="display" id="display" disabled>
+        <div class="buttons">
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button class="operator" onclick="appendValue('+')">+</button>
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button class="operator" onclick="appendValue('-')">-</button>
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button class="operator" onclick="appendValue('*')">×</button>
+            <button onclick="appendValue('0')">0</button>
+            <button onclick="appendValue('.')">.</button>
+            <button onclick="calculate()">=</button>
+            <button class="operator" onclick="appendValue('/')">÷</button>
+        </div>
+    </div>
+
+    <script>
+        function appendValue(value) {
+            document.getElementById('display').value += value;
+        }
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+        function calculate() {
+            try {
+                document.getElementById('display').value = eval(document.getElementById('display').value);
+            } catch (e) {
+                alert('Invalid Expression');
+                clearDisplay();
+            }
+        }
+    </script>
+</body>
+</html>
